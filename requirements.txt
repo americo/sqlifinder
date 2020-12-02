@@ -1,0 +1,3 @@
+huepy
+requests
+tqdm
