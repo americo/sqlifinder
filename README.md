@@ -1,2 +1,2 @@
 # sqlifinder
-SQL Injection Vulnerability Scaner made with Python
+SQL Injection Vulnerability Scanner made with Python
