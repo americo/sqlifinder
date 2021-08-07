@@ -82,5 +82,5 @@ The `-s` command can be used to test sql injection in subdomains of the target.
 
 # License
 
-sqlifinder is made with 🖤 by the [americo](https://americojunior).
+sqlifinder is made with 🖤 by the [americo](https://americojunior.com).
 
