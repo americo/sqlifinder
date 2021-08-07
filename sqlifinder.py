@@ -10,6 +10,7 @@ import string
 from huepy import *
 from core import requester
 from core import extractor
+from core import crawler
 from urllib.parse import unquote
 from tqdm import tqdm 
 
@@ -34,6 +35,11 @@ def banner():
 
     print(green(ban))
 
+def concatenate_list_data(list, result):
+    for element in list:
+        result = result + "\n" + str(element)
+    return result
+
 def main():
     parser = argparse.ArgumentParser(description='xssfinder - a xss scanner tool')
     parser.add_argument('-d', '--domain', help = 'Domain name of the target [ex. example.com]', required=True)
@@ -45,21 +51,21 @@ def main():
     else:
         url = f"http://web.archive.org/cdx/search/cdx?url={args.domain}/*&output=txt&fl=original&collapse=urlkey&page=/"
 
-    for i in tqdm (range (100), desc="Starting..."): 
-        time.sleep(0.01)
+    '''for i in tqdm (range (100), desc="Starting..."): 
+        time.sleep(0.01)'''
 
     clear()
     banner()
 
-    print(green("target: ")+args.domain)
-
     response = requester.connector(url)
+    crawled_urls = crawler.spider(f"http://{args.domain}", 10)
+    response = concatenate_list_data(crawled_urls, response)
     if response == False:
         return
     response = unquote(response)
 
-    print("\n[*] scanning the target...")
-
+    print("\n"+"["+blue("INF")+"]"+f" Scanning sql injection for {args.domain}")
+    
     exclude = ['woff', 'js', 'ttf', 'otf', 'eot', 'svg', 'png', 'jpg']
     final_uris = extractor.param_extract(response , "high", exclude, "")
 
@@ -75,17 +81,9 @@ def main():
             try:
                 req = requests.get("{}".format(final_url))
                 res = req.text
-                if 'SQL' in res:
-                    print(green("[!] sql injection found at: ")+final_url)
-                    break
-                elif 'sql' in res:
-                    print(green("[!] sql injection found at: ")+final_url)
-                    break
-                elif 'Sql' in res:
-                    print(green("[!] sql injection found at: ")+final_url)
-                    break
-                else:
-                    pass                                
+                if 'SQL' in res or 'sql' in res or 'Sql' in res:
+                    print("["+green("sql-injection")+"] "+final_url)
+                    break                           
             except:
                 pass
 
