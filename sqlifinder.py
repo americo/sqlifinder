@@ -41,7 +41,7 @@ def concatenate_list_data(list, result):
     return result
 
 def main():
-    parser = argparse.ArgumentParser(description='xssfinder - a xss scanner tool')
+    parser = argparse.ArgumentParser(description='sqlifinder - a sql injection scanner tool')
     parser.add_argument('-d', '--domain', help = 'Domain name of the target [ex. example.com]', required=True)
     parser.add_argument('-s', '--subs', help = 'Set false or true [ex: --subs False]', default=False)
     args = parser.parse_args()
