@@ -23,7 +23,8 @@ class LinkParser(HTMLParser):
         else:
             return "",[]
 
-def spider(url, maxPages):  
+def spider(url, maxPages):
+    links = [] 
     pagesToVisit = [url]
     numberVisited = 0
     foundWord = False
