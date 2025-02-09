@@ -48,7 +48,7 @@ Sqlifinder requires:
 - requests
 - tqdm
 
-To install run these comands:
+To install run these commands:
 ```sh
 ▶ sudo apt install git
 ```
