@@ -17,7 +17,7 @@ class LinkParser(HTMLParser):
             for (key, value) in attrs:
                 if key == 'href':
                     newUrl = parse.urljoin(self.baseUrl, value)
-                    self.links = self.links + [newUrl]
+                    self.links.append(newUrl)
 
     def getLinks(self, url):
         """Fetch webpage and extract all links found.
@@ -57,10 +57,9 @@ def spider(url, maxPages):
     pagesToVisit = [url]
     numberVisited = 0
     foundWord = False
-    while numberVisited < maxPages and pagesToVisit != [] and not foundWord:
-        numberVisited = numberVisited +1
-        url = pagesToVisit[0]
-        pagesToVisit = pagesToVisit[1:]
+    while numberVisited < maxPages and pagesToVisit:
+        numberVisited += 1
+        url = pagesToVisit.pop()
         try:
             parser = LinkParser()
             data, links = parser.getLinks(url)

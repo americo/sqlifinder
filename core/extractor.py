@@ -29,7 +29,7 @@ def param_extract(response, level, black_list, placeholder):
         
     for i in parsed:
         delim = i.find('=')
-        second_delim = i.find('=', i.find('=') + 1)
+        second_delim = i.find('=', delim + 1)
         if len(black_list) > 0:
             words_re = re.compile("|".join(black_list))
             if not words_re.search(i):
