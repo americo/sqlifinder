@@ -2,6 +2,22 @@ import re
 
 
 def param_extract(response, level, black_list, placeholder):
+    """
+    Extract URL parameters from response text and replace values with placeholders.
+
+    Args:
+        response (str): HTML/text response to parse for URLs with parameters
+        level (str): Depth of parameter extraction ('high' extracts nested params)
+        black_list (list): List of strings to exclude from results
+        placeholder (str): String to replace parameter values with
+
+    Returns:
+        list: Unique URLs with parameter values replaced by placeholder
+
+    Uses regex patterns:
+        - r'.*?:\/\/.*\?.*\=[^$]' : Matches URLs with at least one parameter
+        - r'.*?:\/\/.*\?.*\=' : Basic URL parameter pattern
+    """
 
     ''' 
     regexp : r'.*?:\/\/.*\?.*\=[^$]'

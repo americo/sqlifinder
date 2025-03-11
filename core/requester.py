@@ -3,9 +3,25 @@ import random
 
 
 def connector(url):
+    """
+    Make an HTTP GET request to a URL with a random user agent.
+
+    Args:
+        url (str): The target URL to send the GET request to
+
+    Returns:
+        str: The response text from the server, or False if connection fails
+
+    Raises:
+        ConnectionError: If cannot connect to the server
+        TimeoutError: If the request times out (30s)
+        AttributeError: If there's an error in the HTTP request
+        KeyboardInterrupt: If the user interrupts the process
+        RuntimeError: For other unexpected exceptions
+    """
     result = False
     user_agent_list = [
-   #Chrome
+    #Chrome
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36',
     'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36',
     'Mozilla/5.0 (Windows NT 5.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36',

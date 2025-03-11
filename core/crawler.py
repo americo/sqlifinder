@@ -5,6 +5,14 @@ from urllib import parse
 class LinkParser(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
+        """Process HTML start tags to find anchor tags and extract href URLs.
+        
+        Args:
+            tag (str): HTML tag name
+            attrs (list): List of (attribute, value) tuples
+
+        """
+
         if tag == 'a':
             for (key, value) in attrs:
                 if key == 'href':
@@ -12,6 +20,17 @@ class LinkParser(HTMLParser):
                     self.links = self.links + [newUrl]
 
     def getLinks(self, url):
+        """Fetch webpage and extract all links found.
+        
+        Args:
+            url (str): URL to fetch and parse
+            
+        Returns:
+            tuple: (html_content, links_found)
+                - html_content (str): Page HTML content
+                - links_found (list): List of absolute URLs found
+        """
+
         self.links = []
         self.baseUrl = url
         response = urlopen(url)
@@ -24,6 +43,16 @@ class LinkParser(HTMLParser):
             return "",[]
 
 def spider(url, maxPages):
+    """Web crawler that visits pages and collects links.
+    
+    Args:
+        url (str): Starting URL to begin crawl
+        maxPages (int): Maximum number of pages to visit
+        
+    Returns:
+        list: All unique links discovered during crawl
+    """
+
     links = [] 
     pagesToVisit = [url]
     numberVisited = 0
