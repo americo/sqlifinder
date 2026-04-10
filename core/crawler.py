@@ -56,7 +56,6 @@ def spider(url, maxPages):
     links = [] 
     pagesToVisit = [url]
     numberVisited = 0
-    foundWord = False
     while numberVisited < maxPages and pagesToVisit:
         numberVisited += 1
         url = pagesToVisit.pop()
@@ -65,6 +64,4 @@ def spider(url, maxPages):
             data, links = parser.getLinks(url)
         except:
             pass
-        return links
-
-print(spider("http://vulnweb.com", 10))
+    return links
